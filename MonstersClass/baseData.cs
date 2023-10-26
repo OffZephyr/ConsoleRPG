@@ -21,8 +21,9 @@ namespace ConsoleRPG
         public static bool[,] keysList = new bool[10, 10];
         public static bool[,] openDoorsList = new bool[10, 10];
         public static bool[,] defeatedEntities = new bool[10, 10];
+        public static List<(int, int)> visitedRooms = new List<(int, int)>();
 
-        public static int keys = 10;
+        public static int keys = 0;
 
         public static Dictionary<string, string> Controls = new Dictionary<string, string>()
     {

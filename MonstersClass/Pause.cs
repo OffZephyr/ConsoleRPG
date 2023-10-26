@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics.SymbolStore;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,10 +12,11 @@ namespace ConsoleRPG
 {
     public class Pause
     {
-        static int menuOption;
-        public static bool open = false;
-        static string input;
-        static string[] options = new string[]
+        public Pause()
+        {
+        int menuOption;
+        string input;
+        string[] options = new string[]
         {
         "Resume",
         "Open Map",
@@ -21,11 +24,8 @@ namespace ConsoleRPG
         "How to play?",
         "Quit Game"
         };
+        bool open = true;
 
-
-        public static void create()
-        {
-            open = true;
             menuOption = 0;
 
             while (open)
@@ -77,14 +77,15 @@ namespace ConsoleRPG
                             open = false;
                             break;
                         case 1:
+                            new Map();
                             break;
                         case 2:
-                            Controls.openMenu();
+                            new Controls();
                             break;
                         case 3:
                             break;
                         case 4:
-                            RESET.trigger();
+                            new RESET();
                             break;
                     }
                 }

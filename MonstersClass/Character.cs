@@ -46,7 +46,7 @@ namespace ConsoleRPG
                     enemy.name = "Shrek";
                     break;
             }
-            player.strength = 300000000 + 8 * baseData.playerLevel / 5;
+            player.strength = 3 + 8 * baseData.playerLevel / 5;
             player.hpbase = 150 + 25 * baseData.playerLevel / 2;
             if (firstUpdate == false)
             {

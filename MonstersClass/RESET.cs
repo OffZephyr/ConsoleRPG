@@ -8,7 +8,7 @@ namespace ConsoleRPG
 {
     public class RESET
     {
-        public static void trigger()
+        public RESET()
         {
             baseData.currentRoomX = 3;
             baseData.currentRoomY = 2;

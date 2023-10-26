@@ -9,13 +9,12 @@ namespace ConsoleRPG
     public class Controls
     {
         static int menuOption = 0;
-        static bool open = true;
         static string input;
         static string controlInput;
         static bool changeKey;
-        public static void openMenu()
+        public Controls()
         {
-            open = true;
+            bool open = true;
 
             while (open)
             {

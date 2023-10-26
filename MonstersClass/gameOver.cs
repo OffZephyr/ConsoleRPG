@@ -46,7 +46,7 @@ namespace ConsoleRPG
             }
             Thread.Sleep(5000);
             Console.Clear();
-            RESET.trigger();
+            new RESET();
         }
         static void Spaces()
         {

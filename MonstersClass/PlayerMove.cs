@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,7 @@ namespace ConsoleRPG
             while (movement)
             {
 
+                addRoom();
                 RoomGen.generateRoom(baseData.currentRoomX, baseData.currentRoomY, player, enemy);
                 roomChange = 0;
                 while (Console.KeyAvailable) Console.ReadKey(true);
@@ -64,7 +66,11 @@ namespace ConsoleRPG
                 }
                 if (input == baseData.Controls["Pause Game"])
                 {
-                    Pause.create();
+                    new Pause();
+                }
+                if(input == baseData.Controls["Open Map"])
+                {
+                    new Map();
                 }
                 switch (RoomGen.tileData[playerX, playerY])
                 {
@@ -156,6 +162,10 @@ namespace ConsoleRPG
                     Character.Update(PlayerMove.player, PlayerMove.enemy);
                     break;
             }
+        }
+        static void addRoom()
+        {
+            if (!baseData.visitedRooms.Contains((baseData.currentRoomX, baseData.currentRoomY))) baseData.visitedRooms.Add((baseData.currentRoomX, baseData.currentRoomY));
         }
     }
 }

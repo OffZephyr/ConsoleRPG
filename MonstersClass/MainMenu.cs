@@ -15,7 +15,6 @@ namespace ConsoleRPG
         static int menu = 0;
         static int menuOption = 0;
         static string input;
-        static bool changeKey;
 
         //ConsoleKey.Escape
         public static
@@ -38,7 +37,7 @@ namespace ConsoleRPG
                     printOptions("PLEASE PICK A DIFFICULTY:", "EASY", "NORMAL", "HARD", "INSANE", ConsoleColor.Green, ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.DarkMagenta);
                     break;
                 case 4:
-                    Controls.openMenu();
+                    new Controls();
                     menu = 2;
                     break;
                 case 5:
@@ -77,18 +76,22 @@ namespace ConsoleRPG
                 case 2: Console.ForegroundColor = ConsoleColor.Cyan; break;
             }
             Console.WriteLine(" ");
-            spaces(40);
-            Console.WriteLine(" ____ ___       __  .__  __  .__             .___ ____________________  ________ ");
-            spaces(40);
-            Console.WriteLine("|    |   \\_____/  |_|__|/  |_|  |   ____   __| _/ \\______   \\______   \\/  _____/ ");
-            spaces(40);
-            Console.WriteLine("|    |   /    \\   __\\  \\   __\\  | _/ __ \\ / __ |   |       _/|     ___/   \\  ___ ");
-            spaces(40);
-            Console.WriteLine("|    |  /   |  \\  | |  ||  | |  |_\\  ___// /_/ |   |    |   \\|    |   \\    \\_\\  \\");
-            spaces(40);
-            Console.WriteLine("|______/|___|  /__| |__||__| |____/\\___  >____ |   |____|_  /|____|    \\______  /");
-            spaces(40);
-            Console.WriteLine("             \\/                        \\/     \\/          \\/                  \\/ ");
+            spaces(55);
+            Console.WriteLine("_________                            .__           ________                          __    ________  ____  ___");
+            spaces(55);
+            Console.WriteLine("\\_   ___ \\  ____   ____   __________ |  |   ____   \\_____  \\  __ __   ____   _______/  |_  \\______ \\ \\   \\/  /");
+            spaces(55);
+            Console.WriteLine("/    \\  \\/ /  _ \\ /    \\ /  ___/  _ \\|  | _/ __ \\   /  / \\  \\|  |  \\_/ __ \\ /  ___/\\   __\\  |    |  \\ \\     / ");
+            spaces(55);
+            Console.WriteLine("\\     \\___(  <_> )   |  \\\\___ (  <_> )  |_\\  ___/  /   \\_/.  \\  |  /\\  ___/ \\___ \\  |  |    |    `   \\/     \\ ");
+            spaces(55);
+            Console.WriteLine(" \\______  /\\____/|___|  /____  >____/|____/\\___  > \\_____\\ \\_/____/  \\___  >____  > |__|   /_______  /___/\\  \\");
+            spaces(55);
+            Console.WriteLine("        \\/            \\/     \\/                \\/         \\__>           \\/     \\/                 \\/      \\_/");
+            string subtitle = "A SUPER MEGA EPIC AND CRAZY ADVENTURE INTO THE CENTER OF THE WINDOWS CONSOLE™ !";
+            Console.WriteLine();
+            spaces(subtitle.Length/2);
+            Console.WriteLine(subtitle);
 
             Thread.Sleep(sleep);
         }
@@ -135,10 +138,6 @@ namespace ConsoleRPG
                             Console.ForegroundColor = ConsoleColor.White;
                         }
                     }
-                    break;
-                case 4:
-                    Controls.openMenu();
-                    menu = 1;
                     break;
                 case 6:
                     Console.ForegroundColor = ConsoleColor.White;
