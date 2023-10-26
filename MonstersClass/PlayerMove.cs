@@ -4,107 +4,156 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class PlayerMove
+
+namespace ConsoleRPG
 {
-    static Random random = new Random();
-    public static Character player = new Character();
-    public static Character enemy = new Character();
-
-    static bool movement = false;
-    public static int playerX = 8;
-    public static int playerY = 10;
-    static string input;
-
-    public static void canMove(bool canMove)
+    public class PlayerMove
     {
-        Character.Update(player, enemy);
-        movement = canMove;
-        while (movement)
+        static Random random = new Random();
+        public static Character player = new Character();
+        public static Character enemy = new Character();
+
+        static bool movement = false;
+        public static int playerX = 8;
+        public static int playerY = 10;
+        static string input;
+        public static int roomChange;
+
+        public static void canMove(bool canMove)
         {
-            RoomGen.generateRoom(baseData.currentRoomX, baseData.currentRoomY, player, enemy);
-            RoomGen.roomChange = 0;
-            input = Console.ReadKey().Key.ToString();
-            if (input == baseData.Controls["Move Down"])
+            Character.Update(player, enemy);
+            movement = canMove;
+            while (movement)
             {
-                if (RoomGen.tileData[playerX, playerY + 1] != 1)
+
+                RoomGen.generateRoom(baseData.currentRoomX, baseData.currentRoomY, player, enemy);
+                roomChange = 0;
+                while (Console.KeyAvailable) Console.ReadKey(true);
+                input = Console.ReadKey().Key.ToString();
+                if (input == baseData.Controls["Move Down"])
                 {
-                    if (RoomGen.tileData[playerX, playerY + 1] != 13 || baseData.keys != 0)
-                        playerY++;
+                    if (RoomGen.tileData[playerX, playerY + 1] != 1)
+                    {
+                        if (RoomGen.tileData[playerX, playerY + 1] != 13 || baseData.keys != 0)
+                            playerY++;
+                    }
+                }
+                if (input == baseData.Controls["Move Up"])
+                {
+                    if (RoomGen.tileData[playerX, playerY - 1] != 1)
+                    {
+                        if (RoomGen.tileData[playerX, playerY - 1] != 13 || baseData.keys != 0)
+                            playerY--;
+                    }
+                }
+                if (input == baseData.Controls["Move Left"])
+                {
+                    if (RoomGen.tileData[playerX - 1, playerY] != 1)
+                    {
+                        if (RoomGen.tileData[playerX - 1, playerY] != 13 || baseData.keys != 0)
+                            playerX--;
+                    }
+                }
+                if (input == baseData.Controls["Move Right"])
+                {
+                    if (RoomGen.tileData[playerX + 1, playerY] != 1)
+                    {
+                        if (RoomGen.tileData[playerX + 1, playerY] != 13 || baseData.keys != 0)
+                            playerX++;
+                    }
+                }
+                if (input == baseData.Controls["Pause Game"])
+                {
+                    Pause.create();
+                }
+                switch (RoomGen.tileData[playerX, playerY])
+                {
+                    case 2:
+                        roomChange = 1;
+                        baseData.currentRoomX--;
+                        break;
+                    case 3:
+                        baseData.currentRoomY++;
+                        roomChange = 2;
+                        break;
+                    case 4:
+                        baseData.currentRoomX++;
+                        roomChange = 3;
+                        break;
+                    case 5:
+                        baseData.currentRoomY--;
+                        roomChange = 4;
+                        break;
+                    case 6:
+                        if (baseData.defeatedEntities[7, 7] != true)
+                            gameOver.print(true);
+                        else
+                        {
+                            winScreen.print(baseData.artifactHealth && baseData.artifactLuck && baseData.artifactFight);
+                        }
+                        break;
+                    case 7:
+                        if (baseData.defeatedEntities[baseData.currentRoomX, baseData.currentRoomY] != true)
+                        {
+                            enemy.name = Character.smallEnemies[random.Next(0, Character.smallEnemies.Length)];
+                            Fighting.Fight(player, enemy);
+                        }
+                        break;
+                    case 9:
+                        if (baseData.defeatedEntities[baseData.currentRoomX, baseData.currentRoomY] != true)
+                        {
+                            Fighting.Fight(player, enemy);
+                        }
+                        break;
+                    case 10:
+                        if (!baseData.artifactHealth) baseData.artifactHealth = true;
+                        break;
+                    case 11:
+                        if (!baseData.artifactFight) baseData.artifactFight = true;
+                        break;
+                    case 12:
+                        if (!baseData.artifactLuck) baseData.artifactLuck = true;
+                        break;
+                    case 13:
+                        if (!baseData.openDoorsList[baseData.currentRoomX, baseData.currentRoomY])
+                        {
+                            baseData.openDoorsList[baseData.currentRoomX, baseData.currentRoomY] = true;
+                            baseData.keys--;
+                        }
+                        break;
+                    case 14:
+                        if (baseData.keysList[baseData.currentRoomX, baseData.currentRoomY] != true)
+                        {
+                            baseData.keysList[baseData.currentRoomX, baseData.currentRoomY] = true;
+                            baseData.keys++;
+                        }
+                        break;
                 }
             }
-            if (input == baseData.Controls["Move Up"])
+        }
+        public static void playerDoorCheck(int Direction)
+        {
+            switch (Direction)
             {
-                if (RoomGen.tileData[playerX, playerY - 1] != 1)
-                {
-                    if (RoomGen.tileData[playerX, playerY - 1] != 13 || baseData.keys != 0)
-                        playerY--;
-                }
-            }
-            if (input == baseData.Controls["Move Left"])
-            {
-                if (RoomGen.tileData[playerX - 1, playerY] != 1)
-                {
-                    if (RoomGen.tileData[playerX - 1, playerY] != 13 || baseData.keys != 0)
-                        playerX--;
-                }
-            }
-            if (input == baseData.Controls["Move Right"])
-            {
-                if (RoomGen.tileData[playerX + 1, playerY] != 1)
-                {
-                    if (RoomGen.tileData[playerX + 1, playerY] != 13 || baseData.keys != 0)
-                        playerX++;
-                }
-            }
-            switch (RoomGen.tileData[playerX, playerY])
-            {
+                case 1:
+                    PlayerMove.playerX = RoomGen.xSize - 2;
+                    PlayerMove.playerY = RoomGen.ySize / 2;
+                    Character.Update(PlayerMove.player, PlayerMove.enemy);
+                    break;
                 case 2:
-                    baseData.currentRoomX--;
-                    RoomGen.roomChange = 1;
+                    PlayerMove.playerY = RoomGen.ySize - 2;
+                    PlayerMove.playerX = RoomGen.xSize / 2;
+                    Character.Update(PlayerMove.player, PlayerMove.enemy);
                     break;
                 case 3:
-                    baseData.currentRoomY++;
-                    RoomGen.roomChange = 2;
+                    PlayerMove.playerX = 1;
+                    PlayerMove.playerY = RoomGen.ySize / 2;
+                    Character.Update(PlayerMove.player, PlayerMove.enemy);
                     break;
                 case 4:
-                    baseData.currentRoomX++;
-                    RoomGen.roomChange = 3;
-                    break;
-                case 5:
-                    baseData.currentRoomY--;
-                    RoomGen.roomChange = 4;
-                    break;
-                case 6:
-                    if (RoomGen.defeatedEntities[7, 7] != true)
-                    gameOver.print(true);
-                    else
-                    {
-                        winScreen.print(baseData.artifactHealth && baseData.artifactLuck && baseData.artifactFight);
-                    }
-                    break;
-                case 7:
-                    enemy.name = Character.smallEnemies[random.Next(0, Character.smallEnemies.Length)];
-                    Fighting.Fight(player, enemy);
-                    break;
-                case 9:
-                    Fighting.Fight(player, enemy);
-                    break;
-                case 10:
-                    baseData.artifactHealth = true;
-                    break;
-                case 11:
-                    baseData.artifactFight = true;
-                    break;
-                case 12:
-                    baseData.artifactLuck = true;
-                    break;
-                case 13:
-                    RoomGen.defeatedEntities[baseData.currentRoomX, baseData.currentRoomY] = true;
-                    baseData.keys--;
-                    break;
-                case 14:
-                    baseData.keysList[baseData.currentRoomX,baseData.currentRoomY] = true;
-                    baseData.keys++;
+                    PlayerMove.playerY = 1;
+                    PlayerMove.playerX = RoomGen.xSize / 2;
+                    Character.Update(PlayerMove.player, PlayerMove.enemy);
                     break;
             }
         }

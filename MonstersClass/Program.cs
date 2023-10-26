@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using ConsoleRPG;
+
 Console.OutputEncoding = Encoding.UTF8;
 
 Intro.initialize();
-PlayerMove.canMove(true);
 
 
 

@@ -4,54 +4,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class winScreen
+namespace ConsoleRPG
 {
-    public static void print(bool perfect)
+    public class winScreen
     {
-        PlayerMove.canMove(false);
-        Console.Clear();
-        for (int i = 0; i < Console.WindowHeight / 2 - 6; i++)
+        public static void print(bool perfect)
         {
+            PlayerMove.canMove(false);
+            Console.Clear();
+            for (int i = 0; i < Console.WindowHeight / 2 - 6; i++)
+            {
+                Console.WriteLine();
+            }
+            Spaces();
+            Console.WriteLine(",--.   ,--.,-----. ,--. ,--.    ,--.   ,--.,--.,--.  ,--. ");
+            Spaces();
+            Console.WriteLine(" \\  `.'  /'  .-.  '|  | |  |    |  |   |  ||  ||  ,'.|  | ");
+            Spaces();
+            Console.WriteLine("  '.    / |  | |  ||  | |  |    |  |.'.|  ||  ||  |' '  | ");
+            Spaces();
+            Console.WriteLine("    |  |  '  '-'  ''  '-'  '    |   ,'.   ||  ||  | `   | ");
+            Spaces();
+            Console.WriteLine("    `--'   `-----'  `-----'     '--'   '--'`--'`--'  `--' ");
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            if (perfect)
+            {
+                for (int i = 0; i < Console.WindowWidth / 2 - 23; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine("You have saved the day and found everything ! ");
+            }
+            else
+            {
+                for (int i = 0; i < Console.WindowWidth / 2 - 19; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine("You haven't found everything though...");
+            }
+            Thread.Sleep(5000);
+            Console.Clear();
+            RESET.trigger();
         }
-        Spaces();
-        Console.WriteLine(",--.   ,--.,-----. ,--. ,--.    ,--.   ,--.,--.,--.  ,--. ");
-        Spaces();
-        Console.WriteLine(" \\  `.'  /'  .-.  '|  | |  |    |  |   |  ||  ||  ,'.|  | ");
-        Spaces();
-        Console.WriteLine("  '.    / |  | |  ||  | |  |    |  |.'.|  ||  ||  |' '  | ");
-        Spaces();
-        Console.WriteLine("    |  |  '  '-'  ''  '-'  '    |   ,'.   ||  ||  | `   | ");
-        Spaces();
-        Console.WriteLine("    `--'   `-----'  `-----'     '--'   '--'`--'`--'  `--' ");
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine();
-        if (perfect)
+        static void Spaces()
         {
-            for (int i = 0; i < Console.WindowWidth / 2 - 23; i++)
+            for (int i = 0; i < Console.WindowWidth / 2 - 29; i++)
             {
                 Console.Write(" ");
             }
-            Console.WriteLine("You have saved the day and found everything ! ");
-        }
-        else
-        {
-            for (int i = 0; i < Console.WindowWidth / 2 - 19; i++)
-            {
-                Console.Write(" ");
-            }
-            Console.WriteLine("You haven't found everything though...");
-        }
-        Thread.Sleep(5000);
-        Console.Clear();
-        Environment.Exit(0);
-    }
-    static void Spaces()
-    {
-        for (int i = 0; i < Console.WindowWidth / 2 - 29; i++)
-        {
-            Console.Write(" ");
         }
     }
 }
