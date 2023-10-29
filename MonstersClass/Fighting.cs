@@ -28,13 +28,15 @@ namespace ConsoleRPG
             Character.printCharacters(character1, character2, "battle");
             Comment.print();
             Attacks.print(character1);
-            Thread.Sleep(1000);
+            while (Console.KeyAvailable) Console.ReadKey(true);
             switch (playerTurn)
             {
                 case true:
+                    Thread.Sleep(500);
                     playerAttack(character1, character2);
                     break;
                 case false:
+                    Thread.Sleep(1000);
                     enemyAttack(character2, character1);
                     break;
             }
@@ -176,6 +178,10 @@ namespace ConsoleRPG
                     Comment.commentText = player.name + " tried using " + Character.attackNames[2] + " and failed.";
                 }
                 playerTurn = false;
+            }
+            else if (input == baseData.Controls["Pause Game"])
+            {
+                new Pause();
             }
             else
             {

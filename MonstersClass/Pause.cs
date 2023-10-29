@@ -83,6 +83,7 @@ namespace ConsoleRPG
                             new Controls();
                             break;
                         case 3:
+                            new Tutorial();
                             break;
                         case 4:
                             new RESET();

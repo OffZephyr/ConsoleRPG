@@ -41,7 +41,8 @@ namespace ConsoleRPG
                     menu = 2;
                     break;
                 case 5:
-                    printOptions("How to play ?", "", "", "", "", ConsoleColor.White, ConsoleColor.White, ConsoleColor.White, ConsoleColor.White);
+                    new Tutorial();
+                    menu = 2;
                     break;
                 case 6:
                     printOptions("", "", "", "", "", ConsoleColor.White, ConsoleColor.White, ConsoleColor.White, ConsoleColor.White);
@@ -185,10 +186,6 @@ namespace ConsoleRPG
                             case 1:
                                 menu--;
                                 Intro.initialize();
-                                break;
-                            case 5:
-                                menu = 2;
-                                menuOption = 0;
                                 break;
                             case 6:
                                 menu = 2;

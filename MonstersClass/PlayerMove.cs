@@ -36,7 +36,7 @@ namespace ConsoleRPG
                 {
                     if (RoomGen.tileData[playerX, playerY + 1] != 1)
                     {
-                        if (RoomGen.tileData[playerX, playerY + 1] != 13 || baseData.keys != 0)
+                        if (RoomGen.tileData[playerX, playerY + 1] != 13 || baseData.openDoorsList[baseData.currentRoomX, baseData.currentRoomY] || baseData.keys != 0)
                             playerY++;
                     }
                 }
@@ -44,31 +44,31 @@ namespace ConsoleRPG
                 {
                     if (RoomGen.tileData[playerX, playerY - 1] != 1)
                     {
-                        if (RoomGen.tileData[playerX, playerY - 1] != 13 || baseData.keys != 0)
+                        if (RoomGen.tileData[playerX, playerY - 1] != 13 || baseData.openDoorsList[baseData.currentRoomX, baseData.currentRoomY] || baseData.keys != 0)
                             playerY--;
                     }
                 }
-                if (input == baseData.Controls["Move Left"])
+                else if (input == baseData.Controls["Move Left"])
                 {
                     if (RoomGen.tileData[playerX - 1, playerY] != 1)
                     {
-                        if (RoomGen.tileData[playerX - 1, playerY] != 13 || baseData.keys != 0)
+                        if (RoomGen.tileData[playerX - 1, playerY] != 13 || baseData.openDoorsList[baseData.currentRoomX, baseData.currentRoomY] || baseData.keys != 0)
                             playerX--;
                     }
                 }
-                if (input == baseData.Controls["Move Right"])
+                else if (input == baseData.Controls["Move Right"])
                 {
                     if (RoomGen.tileData[playerX + 1, playerY] != 1)
                     {
-                        if (RoomGen.tileData[playerX + 1, playerY] != 13 || baseData.keys != 0)
+                        if (RoomGen.tileData[playerX + 1, playerY] != 13 || baseData.openDoorsList[baseData.currentRoomX, baseData.currentRoomY] || baseData.keys != 0)
                             playerX++;
                     }
                 }
-                if (input == baseData.Controls["Pause Game"])
+                else if (input == baseData.Controls["Pause Game"])
                 {
                     new Pause();
                 }
-                if(input == baseData.Controls["Open Map"])
+                else if(input == baseData.Controls["Open Map"])
                 {
                     new Map();
                 }

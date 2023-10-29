@@ -36,6 +36,7 @@ namespace ConsoleRPG
                                 for (int l = 0; l < RoomData.roomDoors.GetLength(0); l++)
                                 {
                                     if (RoomData.roomDoors[l, 0] == k && RoomData.roomDoors[l, 1] == i && RoomData.roomDoors[l, 3] != 0 && baseData.visitedRooms.Contains((k, i))) doorsymbol = "   ██   ";
+                                    else if (RoomData.roomDoors[l, 0] == k && RoomData.roomDoors[l, 1] == i+1 && RoomData.roomDoors[l, 5] != 0 && baseData.visitedRooms.Contains((k, i+1))) doorsymbol = "   ██   ";
                                 }
                                 Console.Write(doorsymbol);
                             }
