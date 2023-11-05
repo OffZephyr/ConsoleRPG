@@ -23,7 +23,6 @@ namespace ConsoleRPG
             switch (player.name)
             {
                 case "Smurf Cat":
-                    playerWidth = 39;
                     playerCharacter[0] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠖⠊⠉⠙⠒⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     playerCharacter[1] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠎⠁⠀⠀⠀⠀⠀⠀⠱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     playerCharacter[2] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
@@ -44,7 +43,6 @@ namespace ConsoleRPG
                     playerCharacter[17] = "⠀⠀⠀⠀⠀⠀⠓⠬⠦⠽⠕⡗⠁⡠⠛⠡⡧⠀⠀⠉⠒⠒⠀⠀⠹⡺⡢⡀⠈⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀";
                     break;
                 case "Crewmate":
-                    playerWidth = 35;
                     playerCharacter[0] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣤⣤⣤⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀ ";
                     playerCharacter[1] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤⡀⠀⠀⠀⠀⠀ ";
                     playerCharacter[2] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠋⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠈⢻⣿⣿⡄⠀⠀⠀⠀ ";
@@ -65,7 +63,6 @@ namespace ConsoleRPG
                     playerCharacter[17] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁⠀⠈⠻⣿⣿⣿⣿⡿⠏⠀⠀⠀⠀ ";
                     break;
                 case "Saul Goodman":
-                    playerWidth = 50;
                     playerCharacter[0] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⢏⣼⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣧⠀⢻⣆⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     playerCharacter[1] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⣼⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⣄⠀⣶⠈⢻⣿⡄⠸⡟⢻⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     playerCharacter[2] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⠙⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⡆⢸⣿⡇⠀⡁⠈⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
@@ -86,13 +83,13 @@ namespace ConsoleRPG
                     playerCharacter[17] = "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⣨⡿⢟⣵⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷";
                     break;
             }
+            playerWidth = playerCharacter[0].Length;
         }
         public static void defineEnemy(Character enemy)
         {
             switch (enemy.name)
             {
                 case "Shrek":
-                    enemyWidth = 59;
                     enemyCharacter[0] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠔⠊⠉⠉⠑⠢⡀⠀⠀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     enemyCharacter[1] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠒⠉⢀⣠⣤⣈⠁⠀⠀⢘⣦⣼⡿⣿⣞⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     enemyCharacter[2] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡿⣷⡄⣿⢯⣈⣹⡆⠄⠐⣇⢈⡴⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
@@ -114,7 +111,6 @@ namespace ConsoleRPG
 
                     break;
                 case "Kirby":
-                    enemyWidth = 50;
                     enemyCharacter[0] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠶⠚⠋⠉⠉⠉⠉⠉⠳⠤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ";
                     enemyCharacter[1] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠶⠋⠀⣀⣀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠈⠻⣷⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ";
                     enemyCharacter[2] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠤⠞⠁⠀⠀⣴⠃⣼⠀⠀⣰⡇⢸⡇⠀⠀⠀⠀⠀⠀⠉⠛⠒⠒⠒⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀ ";
@@ -135,7 +131,6 @@ namespace ConsoleRPG
                     enemyCharacter[17] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣟⡶⣮⣽⡏⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⡶⠟⢱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     break;
                 case "Breadbug":
-                    enemyWidth = 45;
                     enemyCharacter[0] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠠⠠⠠⠐⠄⠢⠠⡠⠠⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     enemyCharacter[1] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠄⠂⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠈⢂⠄⡁⠁⠂⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     enemyCharacter[2] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢁⢀⢀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠐⠄⠄⠀⠁⢂⠀⠀⠀⠀⠀⠀⠀";
@@ -156,8 +151,6 @@ namespace ConsoleRPG
                     enemyCharacter[17] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠐⠅⠊⠀⠀⠀⠈⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     break;
                 case "Vibe Checker":
-
-                    enemyWidth = 59;
                     enemyCharacter[0] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈";
                     enemyCharacter[1] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣉⣉⣙⠣⠄⠀⠀⠀⠉⠉⠉⠛⠶⢦⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     enemyCharacter[2] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢀⣡⡴⠾⣿⡉⠛⢿⣦⠀⢀⣰⠶⠛⠛⠻⢶⣄⡙⢢⠀⠀⠀⠀⠀⠀⠀⠀";
@@ -178,7 +171,6 @@ namespace ConsoleRPG
                     enemyCharacter[17] = "⠸⣦⡄⠀⠀⠀⠀⡙⢷⣄⠈⠀⠀⠀⣀⡞⠁⡇⠈⣹⡿⠋⢷⠀⢸⡆⢠⣾⡿⠋⠙⠷⢦⣄⣀⣀⡀⠀⠀⠀⠀⠀⣀⣀⠀⠀⣀⣠⣿⠷⠞⠋⠁⠀⠀⠀⠀⠀⠀";
                     break;
                 case "Anti MrBeast":
-                    enemyWidth = 59;
                     enemyCharacter[0] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣷⣶⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     enemyCharacter[1] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
                     enemyCharacter[2] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀";
@@ -199,7 +191,6 @@ namespace ConsoleRPG
                     enemyCharacter[17] = "⣠⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢦⠀⣠⠃⠀⠀⠠⠎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⢙⡆⠤⠤⢤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⣹";
                     break;
                 case "Broken Monday":
-                    enemyWidth = 27;
                     enemyCharacter[0] = "⢨⢎⢎⢎⢎⢎⢎⠮⡪⠪⠊⠊⠊⠊⠊⠪⠪⠪⠺⡜⣎⠵⣣⢫⢎⢮⡃";
                     enemyCharacter[1] = "⢸⢔⢕⠕⢕⠕⢁⠄⠠⠐⠀⠁⠐⠀⠂⠠⠀⡐⢀⢈⠈⠳⡱⡣⡫⢎⡣";
                     enemyCharacter[2] = "⢸⠪⡪⡳⢌⢆⠱⡠⡁⢄⠡⡈⢄⠡⡈⡐⢀⠢⢐⠤⣑⠑⡴⢬⡪⣚⠔";
@@ -220,6 +211,8 @@ namespace ConsoleRPG
                     enemyCharacter[17] = "⢐⠕⡨⢢⠙⢔⢌⠢⣝⢙⠞⡫⠓⡛⡚⡗⡻⡪⣋⢞⠽⣢⢣⢕⢕⢌⠢";
                     break;
             }
+            if (enemyCharacter[0] != null) enemyWidth = enemyCharacter[0].Length;
+            else enemyWidth = 0;
         }
         public static void definePlayerTitle(Character character)
         {

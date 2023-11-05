@@ -2,10 +2,11 @@
 using System.Reflection;
 using System.Text;
 using ConsoleRPG;
+using Microsoft.VisualBasic;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-Intro.initialize();
+new IntroState();
 
 
 

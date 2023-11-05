@@ -21,14 +21,25 @@ namespace ConsoleRPG
 
             Spaces(Console.WindowWidth / 2 - 1);
             Console.WriteLine("|");
-            bigSpaces(24, 23, true);
+            Spaces(Console.WindowWidth / 4 - (baseData.playerLevel - 1).ToString().Length - 24);
             Console.Write("LV:  ");
             Console.Write(baseData.playerLevel - 1);
             Spaces(1);
-            float levelMath = baseData.playerXP / baseData.playerLevel / 3;
-            for (int i = 0; i < levelMath; i++)
+            int levelMath = baseData.playerXP /  baseData.playerLevel / 3;
+            if (levelMath <= 30)
             {
-                Console.Write("|");
+                for (int i = 0; i < levelMath; i++)
+                {
+                    Console.Write("|");
+                }
+            }
+            else
+            {
+                int removeMath = levelMath - 30;
+                for (int i = 0; i < levelMath - removeMath; i++)
+                {
+                    Console.Write("|");
+                }
             }
             for (int i = 0; i < 30 - levelMath; i++)
             {
@@ -38,8 +49,8 @@ namespace ConsoleRPG
             Spaces(1);
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(baseData.playerLevel);
-            //Console.Write(" " + baseData.playerXP + " " + levelMath); //DEBUG LEVEL BAR
-            bigSpaces(18, 17, false);
+            Console.Write(" (" + baseData.playerXP + "/" + 100 * baseData.playerLevel + ")");
+            Spaces(Console.WindowWidth / 4 - baseData.playerLevel.ToString().Length - 18 - baseData.playerXP.ToString().Length - (100 * baseData.playerLevel).ToString().Length);
             Console.Write("|");
             Spaces(Console.WindowWidth / 4 - 5);
             printArtifacts();
@@ -51,30 +62,6 @@ namespace ConsoleRPG
                 for (int i = 0; i < amount; i++)
                 {
                     Console.Write(" ");
-                }
-            }
-
-            void bigSpaces(int amount1, int amount2, bool type)
-            {
-                if (type)
-                {
-                    if (baseData.playerLevel - 1 >= 10)
-                    {
-                        Spaces(Console.WindowWidth / 4 - amount1);
-                    }
-                    else
-                    {
-                        Spaces(Console.WindowWidth / 4 - amount2);
-                    }
-                }
-                else
-                    if (baseData.playerLevel >= 10)
-                {
-                    Spaces(Console.WindowWidth / 4 - amount1);
-                }
-                else
-                {
-                    Spaces(Console.WindowWidth / 4 - amount2);
                 }
             }
 

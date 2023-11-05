@@ -14,7 +14,6 @@ namespace ConsoleRPG
         public string name;
         public static string[] attackNames = new string[3];
         public static string[] enemyAttackNames = new string[3];
-        static bool firstUpdate = false;
         public object color = Console.ForegroundColor;
 
         public int hpbase;
@@ -29,7 +28,7 @@ namespace ConsoleRPG
         "Vibe Checker"
     };
 
-        public static void Update(Character player, Character enemy)
+        public static void Update(Character player, Character enemy, bool first, bool general)
         {
             switch (baseData.currentRoomX, baseData.currentRoomY)
             {
@@ -48,80 +47,96 @@ namespace ConsoleRPG
             }
             player.strength = 3 + 8 * baseData.playerLevel / 5;
             player.hpbase = 150 + 25 * baseData.playerLevel / 2;
-            if (firstUpdate == false)
+            if (first) player.hp = player.hpbase;
+            var characters = new List<Character>();
+            characters.Add(enemy);
+            characters.Add(player);
+            foreach (Character character in characters)
             {
-                player.hp = player.hpbase;
+                if (!first) {
+                    if (character.hp < 0)
+                    {
+                        character.hp = 0;
+                    }
+                    if (character.hp > character.hpbase)
+                    {
+                        character.hp = character.hpbase;
+                    }
+                }
+                character.hp25 = (character.hp / character.hpbase) * 25;
             }
-            switch (playerCharacter)
+            if (general)
             {
-                case 1:
-                    player.name = "Smurf Cat";
-                    attackNames = new string[] { "We Live", "We Love", "We Lie" };
-                    player.color = ConsoleColor.DarkCyan;
-                    break;
-                case 2:
-                    player.name = "Crewmate";
-                    attackNames = new string[] { "Fix Sabotage ", "Finish Task", "Call Meeting" };
-                    player.color = ConsoleColor.Red;
-                    break;
-                case 3:
-                    player.name = "Saul Goodman";
-                    attackNames = new string[] { "Get Money", "Defend Cartel", "Pay Taxes" };
-                    player.color = ConsoleColor.DarkYellow;
-                    break;
+                switch (playerCharacter)
+                {
+                    case 1:
+                        player.name = "Smurf Cat";
+                        attackNames = new string[] { "We Live", "We Love", "We Lie" };
+                        player.color = ConsoleColor.DarkCyan;
+                        break;
+                    case 2:
+                        player.name = "Crewmate";
+                        attackNames = new string[] { "Fix Sabotage ", "Finish Task", "Call Meeting" };
+                        player.color = ConsoleColor.Red;
+                        break;
+                    case 3:
+                        player.name = "Saul Goodman";
+                        attackNames = new string[] { "Get Money", "Defend Cartel", "Pay Taxes" };
+                        player.color = ConsoleColor.DarkYellow;
+                        break;
+                }
+                switch (enemy.name)
+                {
+                    // BOSSES
+                    case "Shrek":
+                        enemyAttackNames = new string[] { "Mud Bath", "All Star", "GET OUT OF MY SWAMP" };
+                        enemy.strength = 30;
+                        enemy.hpbase = 500 + difficulty * 150;
+                        enemy.hp = enemy.hpbase;
+                        enemy.color = ConsoleColor.Green;
+                        break;
+                    case "Kirby":
+                        enemyAttackNames = new string[] { "Feast upon Flesh", "Beat up", "The cries of DreamLand" };
+                        enemy.strength = 20;
+                        enemy.hpbase = 300 + difficulty * 150;
+                        enemy.hp = enemy.hpbase;
+                        enemy.color = ConsoleColor.Magenta;
+                        break;
+                    case "Anti MrBeast":
+                        enemyAttackNames = new string[] { "Steal from the POOR", "Crime", "APOLOGY VIDEO" };
+                        enemy.strength = 10;
+                        enemy.hpbase = 300 + difficulty * 100;
+                        enemy.hp = enemy.hpbase;
+                        enemy.color = ConsoleColor.Yellow;
+                        break;
+                    case "Broken Monday":
+                        enemyAttackNames = new string[] { "Tuesday I was truly hoping...", "Wednesday my empty arms were open...", "Monday left me broken..." };
+                        enemy.strength = 15;
+                        enemy.hpbase = 300 + difficulty * 175;
+                        enemy.hp = enemy.hpbase;
+                        enemy.color = ConsoleColor.Gray;
+                        break;
+                    // SMALL ENEMIES
+                    case "Breadbug":
+                        enemyAttackNames = new string[] { "Theft", "Bread Shaker", "Bread Power" };
+                        enemy.strength = 4 + 8 * baseData.playerLevel / 5;
+                        enemy.hpbase = 75 + difficulty * 25 + 25 * baseData.playerLevel / 2;
+                        enemy.hp = enemy.hpbase;
+                        enemy.color = ConsoleColor.DarkYellow;
+                        break;
+                    case "Vibe Checker":
+                        enemyAttackNames = new string[] { "Heavy Breathing", "Shame", "VIBE CHECK" };
+                        enemy.strength = 5 + 8 * baseData.playerLevel / 5;
+                        enemy.hpbase = 50 + difficulty * 25 + 25 * baseData.playerLevel / 2;
+                        enemy.hp = enemy.hpbase;
+                        enemy.color = ConsoleColor.Yellow;
+                        break;
+                }
+                DrawCharacters.definePlayer(player);
+                DrawCharacters.defineEnemy(enemy);
+                DrawCharacters.definePlayerTitle(player);
+                DrawCharacters.defineEnemyTitle(enemy);
             }
-            switch (enemy.name)
-            {
-                // BOSSES
-                case "Shrek":
-                    enemyAttackNames = new string[] { "Mud Bath", "All Star", "GET OUT OF MY SWAMP" };
-                    enemy.strength = 30;
-                    enemy.hpbase = 500 + difficulty * 150;
-                    enemy.hp = enemy.hpbase;
-                    enemy.color = ConsoleColor.Green;
-                    break;
-                case "Kirby":
-                    enemyAttackNames = new string[] { "Feast upon Flesh", "Beat up", "The cries of DreamLand" };
-                    enemy.strength = 20;
-                    enemy.hpbase = 300 + difficulty * 150;
-                    enemy.hp = enemy.hpbase;
-                    enemy.color = ConsoleColor.Magenta;
-                    break;
-                case "Anti MrBeast":
-                    enemyAttackNames = new string[] { "Steal from the POOR", "Crime", "APOLOGY VIDEO" };
-                    enemy.strength = 10;
-                    enemy.hpbase = 300 + difficulty * 100;
-                    enemy.hp = enemy.hpbase;
-                    enemy.color = ConsoleColor.Yellow;
-                    break;
-                case "Broken Monday":
-                    enemyAttackNames = new string[] { "Tuesday I was truly hoping...", "Wednesday my empty arms were open...", "Monday left me broken..." };
-                    enemy.strength = 15;
-                    enemy.hpbase = 300 + difficulty * 175;
-                    enemy.hp = enemy.hpbase;
-                    enemy.color = ConsoleColor.Gray;
-                    break;
-                // SMALL ENEMIES
-                case "Breadbug":
-                    enemyAttackNames = new string[] { "Theft", "Bread Shaker", "Bread Power" };
-                    enemy.strength = 4 + 8 * baseData.playerLevel / 5;
-                    enemy.hpbase = 75 + difficulty * 25 + 25 * baseData.playerLevel / 2;
-                    enemy.hp = enemy.hpbase;
-                    enemy.color = ConsoleColor.DarkYellow;
-                    break;
-                case "Vibe Checker":
-                    enemyAttackNames = new string[] { "Heavy Breathing", "Shame", "VIBE CHECK" };
-                    enemy.strength = 5 + 8 * baseData.playerLevel / 5;
-                    enemy.hpbase = 50 + difficulty * 25 + 25 * baseData.playerLevel / 2;
-                    enemy.hp = enemy.hpbase;
-                    enemy.color = ConsoleColor.Yellow;
-                    break;
-            }
-            DrawCharacters.definePlayer(player);
-            DrawCharacters.defineEnemy(enemy);
-            DrawCharacters.definePlayerTitle(player);
-            DrawCharacters.defineEnemyTitle(enemy);
-            firstUpdate = true;
         }
         public static void printCharacters(Character player, Character enemy, string mode)
         {

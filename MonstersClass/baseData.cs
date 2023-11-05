@@ -9,6 +9,12 @@ namespace ConsoleRPG
 {
     public class baseData
     {
+        public static Character player = new Character();
+        public static Character enemy = new Character();
+
+        public static bool gameRunning = true;
+        public static string input = "";
+
         public static int currentRoomX = 3;
         public static int currentRoomY = 2;
 
@@ -60,6 +66,27 @@ namespace ConsoleRPG
         {"vulca ", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
         {"Firefoxy [Aide Additionnelle]", "https://twitter.com/FirefoxyLeGibus"}
     };
+
+        public static void spaces(int distance)
+        {
+            for (int i = 0; i < Console.WindowWidth / 2 - distance; i++)
+            {
+                Console.Write(" ");
+            }
+        }
+
+        public static void verticalSpaces(int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Console.WriteLine("");
+            }
+
+        }
+
+
+        public virtual void onCreate() { }
+        public virtual void onUpdate() { }
 
     }
 }

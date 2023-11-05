@@ -6,10 +6,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using ConsoleRPG;
 
 namespace ConsoleRPG
 {
-    public class RoomData
+    public class RoomData : RoomGen
 
     /*
     Before I get bullied for spreading everything into multiple arrays, please note that I am very much aware that it would've been way easier with a single array.
@@ -245,35 +246,35 @@ namespace ConsoleRPG
             {
                 if (roomSizeData[i, 0, 0] == roomx && roomSizeData[i, 0, 1] == roomy)
                 {
-                    RoomGen.xSize = roomSizeData[i, 1, 0];
-                    RoomGen.ySize = roomSizeData[i, 1, 1];
+                    xSize = roomSizeData[i, 1, 0];
+                    ySize = roomSizeData[i, 1, 1];
                 }
             }
-            PlayerMove.playerDoorCheck(PlayerMove.roomChange);
+            playerDoorCheck(roomChange);
 
-            RoomGen.tileData = new int[RoomGen.xSize, RoomGen.ySize];
+            tileData = new int[xSize, ySize];
             updateInfo(roomx, roomy);
 
             void updateInfo(int roomx, int roomy)
             {
-                for (int j = 0; j < RoomGen.xSize; j++)
+                for (int j = 0; j < xSize; j++)
                 {
-                    for (int k = 0; k < RoomGen.ySize; k++)
+                    for (int k = 0; k < ySize; k++)
                     {
-                        RoomGen.tileData[j, k] = 0;
+                        tileData[j, k] = 0;
                     }
                 }
 
 
-                for (int j = 0; j < RoomGen.xSize; j++)
+                for (int j = 0; j < xSize; j++)
                 {
-                    RoomGen.tileData[j, 0] = 1;
-                    RoomGen.tileData[j, RoomGen.ySize - 1] = 1;
+                    tileData[j, 0] = 1;
+                    tileData[j, ySize - 1] = 1;
                 }
-                for (int j = 0; j < RoomGen.ySize; j++)
+                for (int j = 0; j < ySize; j++)
                 {
-                    RoomGen.tileData[0, j] = 1;
-                    RoomGen.tileData[RoomGen.xSize - 1, j] = 1;
+                    tileData[0, j] = 1;
+                    tileData[xSize - 1, j] = 1;
                 }
 
                 for (int j = 0; j < extraTiles.GetLength(0); j++)
@@ -297,20 +298,20 @@ namespace ConsoleRPG
                     }
                 }
 
-                if (baseData.currentRoomX == 2 && baseData.currentRoomY == 4 && baseData.artifactFight == true)
+                if (currentRoomX == 2 && currentRoomY == 4 && artifactFight == true)
                 {
                     door(1, 1);
                 }
 
-                if (baseData.currentRoomX == 7 && baseData.currentRoomY == 7 && baseData.defeatedEntities[7, 7] == true)
+                if (currentRoomX == 7 && currentRoomY == 7 && defeatedEntities[7, 7] == true)
                 {
                     for (int i = 0; i < 9; i++)
                     {
-                        RoomGen.tileData[i + 6, 0] = 6;
+                        tileData[i + 6, 0] = 6;
                     }
                 }
 
-                RoomGen.tileData[PlayerMove.playerX, PlayerMove.playerY] = 8;
+                tileData[playerX, playerY] = 8;
             }
             void saveTiles(int type, int[,,] tyleType)
             {
@@ -318,7 +319,7 @@ namespace ConsoleRPG
                 {
                     if (tyleType[i, 0, 0] == roomx && tyleType[i, 0, 1] == roomy)
                     {
-                        RoomGen.tileData[tyleType[i, 1, 0], tyleType[i, 1, 1]] = type;
+                        tileData[tyleType[i, 1, 0], tyleType[i, 1, 1]] = type;
                     }
                 }
             }
@@ -327,41 +328,41 @@ namespace ConsoleRPG
             {
                 if (tileType[i, 0] == roomx && tileType[i, 1] == roomy)
                 {
-                    RoomGen.tileData[tileType[i, 2], tileType[i, 3]] = tileType[i, 4];
+                    tileData[tileType[i, 2], tileType[i, 3]] = tileType[i, 4];
                 }
             }
 
             void door(int direction, int length)
             {
-                int posy = RoomGen.ySize / 2 - length / 2;
-                int posx = RoomGen.xSize / 2 - length / 2;
+                int posy = ySize / 2 - length / 2;
+                int posx = xSize / 2 - length / 2;
                 switch (direction)
                 {
                     case 0:
                         for (int i = 0; i < length; i++)
                         {
-                            RoomGen.tileData[0, posy] = 2;
+                            tileData[0, posy] = 2;
                             posy++;
                         }
                         break;
                     case 1:
                         for (int i = 0; i < length; i++)
                         {
-                            RoomGen.tileData[posx, 0] = 3;
+                            tileData[posx, 0] = 3;
                             posx++;
                         }
                         break;
                     case 2:
                         for (int i = 0; i < length; i++)
                         {
-                            RoomGen.tileData[RoomGen.xSize - 1, posy] = 4;
+                            tileData[xSize - 1, posy] = 4;
                             posy++;
                         }
                         break;
                     case 3:
                         for (int i = 0; i < length; i++)
                         {
-                            RoomGen.tileData[posx, RoomGen.ySize - 1] = 5;
+                            tileData[posx, ySize - 1] = 5;
                             posx++;
                         }
                         break;

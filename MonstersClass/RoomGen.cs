@@ -6,21 +6,18 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    public class RoomGen
+    public class RoomGen : DungeonState
     {
         public static int xSize;
         public static int ySize;
-        public static int roomChange;
 
         public static int[,] tileData = new int[xSize, ySize];
 
-        public static void generateRoom(int roomx, int roomy, Character player, Character enemy)
+        public static void generateRoom(int roomx, int roomy)
         {
-
-            Console.Clear();
             RoomData.updateRoom(roomx, roomy);
 
-            printRoom(player, enemy);
+            printRoom();
             for (int i = 0; i < Console.WindowHeight / 2 - ySize / 2 - 3; i++)
             {
                 Console.WriteLine();
@@ -28,12 +25,9 @@ namespace ConsoleRPG
             bottomBar.print();
         }
 
-        static void printRoom(Character player, Character enemy)
+        static void printRoom()
         {
-            for (int i = 0; i < Console.WindowHeight / 2 - ySize / 2 - 3; i++)
-            {
-                Console.WriteLine();
-            }
+            verticalSpaces((Console.WindowHeight / 2 - ySize / 2) - 4);
             for (int i = 0; i < ySize; i++)
             {
                 for (int j = 0; j < Console.WindowWidth / 2 - xSize; j++)
@@ -68,7 +62,7 @@ namespace ConsoleRPG
                             Console.Write("██");
                             break;
                         case 7:
-                            if (baseData.defeatedEntities[baseData.currentRoomX, baseData.currentRoomY] != true) // ENEMY
+                            if (defeatedEntities[currentRoomX, currentRoomY] != true) // ENEMY
                             {
                                 Console.ForegroundColor = ConsoleColor.DarkRed;
                                 Console.Write("██");
@@ -80,7 +74,7 @@ namespace ConsoleRPG
                             Console.Write("██");
                             break;
                         case 9:
-                            if (baseData.defeatedEntities[baseData.currentRoomX, baseData.currentRoomY] != true) // BOSS
+                            if (defeatedEntities[currentRoomX, currentRoomY] != true) // BOSS
                             {
                                 Console.ForegroundColor = (ConsoleColor)enemy.color;
                                 Console.Write("██");
@@ -88,7 +82,7 @@ namespace ConsoleRPG
                             else blacknwhite();
                             break;
                         case 10:
-                            if (!baseData.artifactHealth)
+                            if (!artifactHealth)
                             {
                                 Console.ForegroundColor = ConsoleColor.DarkMagenta; // Health Artifact
                                 Console.Write("██");
@@ -96,7 +90,7 @@ namespace ConsoleRPG
                             else blacknwhite();
                             break;
                         case 11:
-                            if (!baseData.artifactFight)
+                            if (!artifactFight)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red; // Fight Artifact
                                 Console.Write("██");
@@ -104,7 +98,7 @@ namespace ConsoleRPG
                             else blacknwhite();
                             break;
                         case 12:
-                            if (!baseData.artifactLuck)
+                            if (!artifactLuck)
                             {
                                 Console.ForegroundColor = ConsoleColor.Green; // Luck Artifact
                                 Console.Write("██");
@@ -112,7 +106,7 @@ namespace ConsoleRPG
                             else blacknwhite();
                             break;
                         case 13:
-                            if (baseData.openDoorsList[baseData.currentRoomX, baseData.currentRoomY] != true) // KEY DOORS
+                            if (openDoorsList[currentRoomX, currentRoomY] != true) // KEY DOORS
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Write("██");
@@ -120,7 +114,7 @@ namespace ConsoleRPG
                             else blacknwhite();
                             break;
                         case 14:
-                            if (baseData.keysList[baseData.currentRoomX, baseData.currentRoomY] != true) // KEY
+                            if (keysList[currentRoomX, currentRoomY] != true) // KEY
                             {
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 Console.Write("██");

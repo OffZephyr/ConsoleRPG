@@ -8,17 +8,28 @@ using System.Xml.Serialization;
 
 namespace ConsoleRPG
 {
-    public class MainMenu
+    public class MainMenuState : MainLoopState
     {
 
         public static bool mainTitle = false;
         static int menu = 0;
         static int menuOption = 0;
-        static string input;
 
         //ConsoleKey.Escape
-        public static
-        void Refresh()
+
+        public override void onCreate()
+        {
+            menu = 1;
+            mainTitle = true;
+            Console.Clear();
+            printTitle(0, 5, 150);
+            Console.Clear();
+            printTitle(1, 5, 150);
+            Console.Clear();
+            printTitle(2, 5, 0);
+            verticalSpaces(Console.WindowHeight / 12);
+        }
+        public override void onUpdate()
         {
             Console.Clear();
             //Console.Write(menu + " " + menuOption); -- DEBUG
@@ -53,23 +64,9 @@ namespace ConsoleRPG
                     break;
             }
         }
-        public static void Start()
-        {
-            menu = 1;
-            mainTitle = true;
-            Console.Clear();
-            printTitle(0, 5, 150);
-            Console.Clear();
-            printTitle(1, 5, 150);
-            Console.Clear();
-            printTitle(2, 5, 0);
-            verticalSpaces(12);
-            Refresh();
-
-        }
         static void printTitle(int dark, int vertSpace, int sleep)
         {
-            verticalSpaces(vertSpace);
+            verticalSpaces(Console.WindowHeight / vertSpace);
             switch (dark)
             {
                 case 0: Console.ForegroundColor = ConsoleColor.DarkGray; break;
@@ -91,7 +88,7 @@ namespace ConsoleRPG
             Console.WriteLine("        \\/            \\/     \\/                \\/         \\__>           \\/     \\/                 \\/      \\_/");
             string subtitle = "A SUPER MEGA EPIC AND CRAZY ADVENTURE INTO THE CENTER OF THE WINDOWS CONSOLE™ !";
             Console.WriteLine();
-            spaces(subtitle.Length/2);
+            spaces(subtitle.Length / 2);
             Console.WriteLine(subtitle);
 
             Thread.Sleep(sleep);
@@ -110,7 +107,7 @@ namespace ConsoleRPG
         };
 
             Console.ForegroundColor = ConsoleColor.White;
-            verticalSpaces(9);
+            verticalSpaces(Console.WindowHeight / 9);
             spaces(subtitle.Length / 2);
             Console.WriteLine(subtitle);
 
@@ -119,10 +116,10 @@ namespace ConsoleRPG
                 default:
                     if (option1 != "")
                     {
-                        verticalSpaces(24);
+                        verticalSpaces(Console.WindowHeight / 24);
                         for (int i = 0; i < optionsList.Count; i++)
                         {
-                            verticalSpaces(24);
+                            verticalSpaces(Console.WindowHeight / 24);
                             if (menuOption == i)
                             {
                                 spaces((optionsList[i].Length / 2) + 2);
@@ -142,14 +139,14 @@ namespace ConsoleRPG
                     break;
                 case 6:
                     Console.ForegroundColor = ConsoleColor.White;
-                    verticalSpaces(+(baseData.Controls.Count + (baseData.Credits.Count * (Console.WindowHeight / 12))) / 2);
+                    verticalSpaces(Console.WindowHeight / 2 - (Controls.Count + (Credits.Count * (Console.WindowHeight / 12)))/2);
                     spaces(4);
                     Console.WriteLine("CREDITS");
-                    for (int i = 0; i < baseData.Credits.Count; i++)
+                    for (int i = 0; i < Credits.Count; i++)
                     {
 
-                        verticalSpaces(12);
-                        string creditName = baseData.Credits.ElementAt(i).Key;
+                        verticalSpaces(Console.WindowHeight / 12);
+                        string creditName = Credits.ElementAt(i).Key;
                         if (menuOption == i)
                         {
                             spaces(((creditName.Length) / 2) + 2);
@@ -166,7 +163,7 @@ namespace ConsoleRPG
             }
 
 
-            verticalSpaces(12);
+            verticalSpaces(Console.WindowHeight / 12);
             Console.WriteLine();
             if (menu > 0) input = Console.ReadKey().Key.ToString();
             menuChange();
@@ -175,7 +172,7 @@ namespace ConsoleRPG
             {
                 if (menu != 0)
                 {
-                    if (input == baseData.Controls["Return"])
+                    if (input == Controls["Return"])
                     {
                         switch (menu)
                         {
@@ -185,7 +182,7 @@ namespace ConsoleRPG
                                 break;
                             case 1:
                                 menu--;
-                                Intro.initialize();
+                                new IntroState();
                                 break;
                             case 6:
                                 menu = 2;
@@ -198,7 +195,7 @@ namespace ConsoleRPG
                         }
                         menuOption = 0;
                     }
-                    if (input == baseData.Controls["Accept"])
+                    if (input == Controls["Accept"])
                     {
                         switch (menu)
                         {
@@ -216,7 +213,7 @@ namespace ConsoleRPG
                                 menuOption = 0;
                                 break;
                             case 6:
-                                var uri = baseData.Credits[baseData.Credits.ElementAt(menuOption).Key];
+                                var uri = Credits[Credits.ElementAt(menuOption).Key];
                                 var psi = new System.Diagnostics.ProcessStartInfo();
                                 psi.UseShellExecute = true;
                                 psi.FileName = uri;
@@ -226,13 +223,13 @@ namespace ConsoleRPG
                                 Character.playerCharacter = menuOption + 1;
                                 menu = 0;
                                 menuOption = 0;
-                                PlayerMove.canMove(true);
+                                Character.Update(player, enemy, true, true);
+                                new DungeonState();
                                 break;
                         }
-                        Refresh();
                         menuOption = 0;
                     }
-                    if (input == baseData.Controls["Move Down"])
+                    if (input == Controls["Move Down"])
                     {
                         if (option4 == "" && menuOption < 2)
                         {
@@ -242,38 +239,21 @@ namespace ConsoleRPG
                         {
                             menuOption++;
                         }
-                        else if (menu == 4 && menuOption < baseData.Controls.Count)
+                        else if (menu == 4 && menuOption < Controls.Count)
                         {
                             menuOption++;
                         }
-                        else if (menu == 5 && menuOption < baseData.Credits.Count - 1)
+                        else if (menu == 5 && menuOption < Credits.Count - 1)
                         {
                             menuOption++;
                         }
                     }
-                    if (input == baseData.Controls["Move Up"] && menuOption != 0)
+                    if (input == Controls["Move Up"] && menuOption != 0)
                     {
                         menuOption--;
                     }
-                    Refresh();
                 }
             }
-        }
-
-        static void spaces(int distance)
-        {
-            for (int i = 0; i < Console.WindowWidth / 2 - distance; i++)
-            {
-                Console.Write(" ");
-            }
-        }
-        static void verticalSpaces(int fraction)
-        {
-            for (int i = 0; i < Console.WindowHeight / fraction; i++)
-            {
-                Console.WriteLine("");
-            }
-
         }
     }
 }

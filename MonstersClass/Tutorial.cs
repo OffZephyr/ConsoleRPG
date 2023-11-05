@@ -8,50 +8,64 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    public class Tutorial
+    public class Tutorial : baseData
     {
+        string[,] tileTypes = new string[,]
+        {
+            {"Wall", "Tile that can't be walked on.", "DarkGray"},
+            {"Exit Doorway", "Walk on this tile to leave.", "Yellow"},
+            {"Key", "This item can be used to open Locked Doors.", "DarkYellow"},
+            {"Common Enemy", "Walking on this tile starts a fight.", "DarkRed"},
+            {"Health Artifact", "This item gives a 2x Healing Bonus to the player.", "DarkMagenta"},
+            {"Fighting Artifact", "This item gives a 1.5x Fight Bonus to the player.", "Red"},
+            {"Luck Artifact", "This item gives a Luck Bonus to the player.", "Green"},
+            {"Boss Enemy", "Any color not listed above is a Boss Battle.", "White"}
+        };
         public Tutorial()
         {
             bool open = true;
-            string input;
-            string line;
 
             while (open)
             {
                 Console.Clear();
-                line = " is a Key. It can be used to open blocked paths.";
-                spaces(line.Length + 2);
-                colorPrint("██", ConsoleColor.DarkYellow);
-                Console.WriteLine(line);
-                Console.WriteLine();
-
-                line = " is a Common Enemy. Going near it will trigger a fight.";
-                spaces(line.Length + 2);
-                colorPrint("██", ConsoleColor.DarkRed);
-                Console.WriteLine(line);
-                Console.WriteLine();
-
-                line = " is a Healing Artifact. It grants a 2x healing boost when collected.";
-                spaces(line.Length + 2);
-                colorPrint("██", ConsoleColor.DarkMagenta);
-                Console.WriteLine(line);
-                Console.WriteLine();
-
-                line = " is a Fighting Artifact. It grants a 1.5x fighting boost when collected.";
-                spaces(line.Length + 2);
-                colorPrint("██", ConsoleColor.Red);
-                Console.WriteLine(line);
-                Console.WriteLine();
-
-                line = " is a Luck Artifact. It grants a higher chance of landing a special hit when collected.";
-                spaces(line.Length + 2);
-                colorPrint("██", ConsoleColor.Green);
-                Console.WriteLine(line);
-                Console.WriteLine();
+                verticalSpaces(Console.WindowHeight / 2 - (tileTypes.GetLength(0) * 3) / 2);
+                for (int x = 0; x < tileTypes.GetLength(0); x++)
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        spaces(Console.WindowWidth / 3);
+                        Console.Write("|");
+                        if (i == 0) Console.Write("‾‾‾‾‾‾");
+                        else if (i == 1) { Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), tileTypes[x, 2]); Console.Write("  ██  "); Console.ForegroundColor = ConsoleColor.White; }
+                        else if (i == 2) Console.Write("______");
+                        Console.Write("|");
+                        for (int j = 0; j < Console.WindowWidth - (2 * (Console.WindowWidth / 3)) - (9 / 2); j++)
+                        {
+                            if (i == 0) Console.Write("‾‾");
+                            if (i == 2) Console.Write("__");
+                        }
+                        int math = (Console.WindowWidth - (2 * (Console.WindowWidth / 3)) - (9 / 2))*2 - 21 - tileTypes[x, 1].Length;
+                        if (i == 1)
+                        {
+                            for (int j = 0; j < (19 - tileTypes[x, 0].Length) / 2; j++) Console.Write(" ");
+                            if (tileTypes[x, 0].Length % 2 == 0) Console.Write(' ');
+                            Console.Write(tileTypes[x, 0]);
+                            for (int j = 0; j < (19 - tileTypes[x, 0].Length) / 2; j++) Console.Write(" ");
+                            Console.Write("| ");
+                            Console.Write(tileTypes[x, 1]);
+                            
+                            for (int j = 0; j < math; j++)
+                            {
+                                Console.Write(' ');
+                            } 
+                        }
+                        Console.WriteLine("|");
+                    }
+                }
 
 
                 input = Console.ReadKey().Key.ToString();
-                if (input == baseData.Controls["Return"].ToString())
+                if (input == Controls["Return"].ToString() || input == Controls["Accept"].ToString())
                 {
                     open = false;
                 }
@@ -63,13 +77,6 @@ namespace ConsoleRPG
             Console.ForegroundColor = color;
             Console.Write(text);
             Console.ForegroundColor = ConsoleColor.White;
-        }
-        static void spaces(int length)
-        {
-            for(int i = 0; i < Console.WindowWidth/2 - length / 2; i++)
-            {
-                Console.Write(" ");
-            }
         }
     }
 }

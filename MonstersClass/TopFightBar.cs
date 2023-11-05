@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    public class HealthBars
+    public class TopFightBar : baseData
     {
-        public static void print(Character character1, Character character2)
+        public static void print()
         {
-            printName(character1.name, character2.name);
-            printHealth(character1, character2);
+            printName(player.name, enemy.name);
+            printHealth(player, enemy);
             printBottomHealth();
         }
         static void middleSpaces()
@@ -21,30 +21,6 @@ namespace ConsoleRPG
             {
                 Console.Write(" ");
             }
-        }
-        static void healthBars(float character, string color)
-        {
-            switch (color)
-            {
-                case "red":
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    for (int i = 0; i < 25 - character; i++)
-                    {
-                        Console.Write("|");
-                    }
-                    Console.ForegroundColor = ConsoleColor.White;
-                    break;
-
-                case "green":
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    for (int i = 0; i < character; i++)
-                    {
-                        Console.Write("|");
-                    }
-                    Console.ForegroundColor = ConsoleColor.White;
-                    break;
-            }
-
         }
         static void printBottomHealth()
         {
@@ -61,31 +37,14 @@ namespace ConsoleRPG
             }
             Console.WriteLine("");
         }
-        static void printHealth(Character character1, Character character2)
+        static void printHealth(Character player, Character enemy)
         {
-            List<Character> characterList = new List<Character>();
-            characterList.Add(character1);
-            characterList.Add(character2);
-
-
-            foreach (Character character in characterList)
-            {
-                if (character.hp < 0)
-                {
-                    character.hp = 0;
-                }
-                if (character.hp > character.hpbase)
-                {
-                    character.hp = character.hpbase;
-                }
-                character.hp25 = Convert.ToInt32(character.hp / character.hpbase * 25);
-            }
-            for (int i = 0; i < Console.WindowWidth / 10; i++)
+            for (int i = 0; i < (Console.WindowWidth / 10) - player.hp.ToString().Length - player.hpbase.ToString().Length - 2; i++)
             {
                 Console.Write(" ");
             }
-            healthBars(character1.hp25, "green");
-            healthBars(character1.hp25, "red");
+            Console.Write(player.hp + "/" + player.hpbase + " ");
+            new HealthBar(player, false);
             for (int i = 0; i < Console.WindowWidth / 3 - 25; i++)
             {
                 Console.Write(" ");
@@ -97,13 +56,9 @@ namespace ConsoleRPG
             {
                 Console.Write(" ");
             }
-            healthBars(character2.hp25, "red");
-            healthBars(character2.hp25, "green");
-            for (int i = 0; i < Console.WindowWidth / 10; i++)
-            {
-                Console.Write(" ");
-            }
-            Console.WriteLine("");
+            new HealthBar(enemy, true);
+            Console.Write(" " + enemy.hp + "/" + enemy.hpbase);
+            Console.WriteLine();
 
         }
         static void printName(string name1, string name2)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleRPG;
 
 namespace ConsoleRPG
 {
@@ -22,12 +23,12 @@ namespace ConsoleRPG
             baseData.defeatedEntities = new bool[10, 10];
             baseData.keys = 0;
 
-            PlayerMove.playerX = 8;
-            PlayerMove.playerY = 10;
+            DungeonState.playerX = 8;
+            DungeonState.playerY = 10;
 
 
 
-        MainMenu.Start();
+        new MainMenuState();
         }
     }
 }

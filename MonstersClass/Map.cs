@@ -17,7 +17,8 @@ namespace ConsoleRPG
             while (open)
             {
                 Console.Clear();
-                
+                baseData.verticalSpaces(Console.WindowHeight / 2 - (28 / 2));
+
 
                 for (int i = 7; i > 0; i--)
                 {
